@@ -1,6 +1,6 @@
 # CSE MCP Server
 
-`cse-mcp` is a TypeScript Model Context Protocol server for the Colombo Stock Exchange. It gives MCP-compatible clients a clean way to search listed companies, fetch normalized single-stock quotes, and retrieve market-wide snapshots such as status, summary, top gainers, top losers, and index data. It is built for developers, analysts, and AI-tool builders who want fast access to CSE data through a stable MCP tool surface instead of scraping raw website responses inside prompts.
+`@gajarthan/cse-mcp` is a TypeScript Model Context Protocol server for the Colombo Stock Exchange. It gives MCP-compatible clients a clean way to search listed companies, fetch normalized single-stock quotes, and retrieve market-wide snapshots such as status, summary, top gainers, top losers, and index data. It is built for developers, analysts, and AI-tool builders who want fast access to CSE data through a stable MCP tool surface instead of scraping raw website responses inside prompts.
 
 ## Key Features
 
@@ -32,6 +32,8 @@
 
 ## Getting Started
 
+### Use a local build
+
 Build locally:
 
 ```bash
@@ -52,21 +54,39 @@ Minimum local MCP config:
 }
 ```
 
-First test prompt:
-
-```text
-Use search_company to find John Keells Holdings, then call get_stock_quote for the correct symbol.
-```
-
 If you are developing locally, MCP Inspector is the fastest smoke test:
 
 ```bash
 npm run inspector
 ```
 
+### Use the published npm package
+
+If the package is published to npm, the fastest install path becomes:
+
+```json
+{
+  "mcpServers": {
+    "cse": {
+      "command": "npx",
+      "args": ["@gajarthan/cse-mcp"]
+    }
+  }
+}
+```
+
+### First test prompt
+
+```text
+Use search_company to find John Keells Holdings, then call get_stock_quote for the correct symbol.
+```
+
 ## MCP Client Configuration
 
-The examples below focus on local `stdio` usage because that is what this server supports today.
+This server supports local `stdio` usage only. In most clients, you can configure it in one of two ways:
+
+- local development mode: `node C:/absolute/path/to/cse-mcp/dist/index.js`
+- published package mode: `npx @gajarthan/cse-mcp`
 
 ### Local `stdio` vs remote HTTP
 
@@ -81,6 +101,12 @@ Add the server directly:
 
 ```bash
 claude mcp add-json cse "{\"type\":\"stdio\",\"command\":\"node\",\"args\":[\"C:/absolute/path/to/cse-mcp/dist/index.js\"]}"
+```
+
+Published-package variant:
+
+```bash
+claude mcp add-json cse "{\"type\":\"stdio\",\"command\":\"npx\",\"args\":[\"@gajarthan/cse-mcp\"]}"
 ```
 
 Or use `.mcp.json`:
@@ -112,12 +138,26 @@ CLI setup:
 codex mcp add cse -- node C:/absolute/path/to/cse-mcp/dist/index.js
 ```
 
+Published-package CLI setup:
+
+```bash
+codex mcp add cse -- npx @gajarthan/cse-mcp
+```
+
 `config.toml` setup:
 
 ```toml
 [mcp_servers.cse]
 command = "node"
 args = ["C:/absolute/path/to/cse-mcp/dist/index.js"]
+```
+
+Published-package `config.toml` setup:
+
+```toml
+[mcp_servers.cse]
+command = "npx"
+args = ["@gajarthan/cse-mcp"]
 ```
 
 ### Cursor
@@ -130,6 +170,19 @@ Cursor MCP support is version-dependent. In versions that support local MCP serv
     "cse": {
       "command": "node",
       "args": ["C:/absolute/path/to/cse-mcp/dist/index.js"]
+    }
+  }
+}
+```
+
+If the client supports `npx`, you can usually replace the command with:
+
+```json
+{
+  "mcpServers": {
+    "cse": {
+      "command": "npx",
+      "args": ["@gajarthan/cse-mcp"]
     }
   }
 }
@@ -365,6 +418,7 @@ If timeout, retry count, base URL override, or CSV path override should become u
 - Make sure the path in `args` is absolute
 - Run `npm run build` before pointing the client at `dist/index.js`
 - Restart the MCP client after changing config
+- If you are using the npm package path, make sure `npx @gajarthan/cse-mcp` works from your terminal
 
 ### The server fails to start
 
@@ -406,6 +460,15 @@ Use an absolute path and forward slashes in JSON config when possible:
 {
   "command": "node",
   "args": ["C:/absolute/path/to/cse-mcp/dist/index.js"]
+}
+```
+
+If you do not want to deal with local paths, prefer the published package form:
+
+```json
+{
+  "command": "npx",
+  "args": ["@gajarthan/cse-mcp"]
 }
 ```
 
