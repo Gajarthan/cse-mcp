@@ -1,0 +1,9 @@
+.git
+.github
+.idea
+dist
+node_modules
+coverage
+*.log
+.mcpregistry_github_token
+.mcpregistry_registry_token

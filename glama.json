@@ -1,0 +1,91 @@
+{
+  "$schema": "https://glama.ai/schemas/mcp.json",
+  "name": "cse-mcp",
+  "version": "2.0.1",
+  "description": "TypeScript MCP server for Colombo Stock Exchange company search, stock quotes, market status, market summary, top movers, and index summaries.",
+  "author": "Gajarthan",
+  "license": "ISC",
+  "language": "typescript",
+  "framework": "modelcontextprotocol-sdk",
+  "type": "mcp_server",
+  "status": "stable",
+  "transport": [
+    "stdio"
+  ],
+  "homepage": "https://github.com/Gajarthan/cse-mcp",
+  "repository": {
+    "url": "https://github.com/Gajarthan/cse-mcp",
+    "source": "github"
+  },
+  "keywords": [
+    "mcp",
+    "colombo-stock-exchange",
+    "stocks",
+    "finance",
+    "typescript",
+    "market-data"
+  ],
+  "categories": [
+    "Finance",
+    "Developer Tools",
+    "Data & Research"
+  ],
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@gajarthan/cse-mcp",
+      "version": "2.0.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "mcpServers": {
+    "cse": {
+      "name": "cse-mcp",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@gajarthan/cse-mcp"
+      ],
+      "env": {},
+      "description": "Colombo Stock Exchange data server for company lookup, quotes, market status, market summary, top movers, and index snapshots.",
+      "capabilities": {
+        "tools": {
+          "enabled": true,
+          "listChanged": false
+        },
+        "resources": {
+          "enabled": false
+        },
+        "prompts": {
+          "enabled": false
+        }
+      },
+      "timeout": {
+        "initialize": 30000,
+        "message": 60000
+      },
+      "metadata": {
+        "version": "2.0.1",
+        "author": "Gajarthan",
+        "homepage": "https://github.com/Gajarthan/cse-mcp",
+        "license": "ISC",
+        "tags": [
+          "cse",
+          "stocks",
+          "market-data",
+          "finance",
+          "mcp"
+        ],
+        "categories": [
+          "Finance",
+          "Developer Tools"
+        ]
+      }
+    }
+  },
+  "maintainers": [
+    "Gajarthan"
+  ]
+}

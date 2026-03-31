@@ -10,6 +10,7 @@ The format is based on Keep a Changelog and this project aims to follow Semantic
 - Baseline automated tests for company lookup, formatter normalization, and mocked CSE API smoke coverage.
 - Cross-platform GitHub Actions CI for install, typecheck, build, and tests.
 - Open-source project hygiene files including `LICENSE`, `CONTRIBUTING.md`, issue templates, and Smithery publishing guidance.
+- `glama.json` metadata and a container build path for Glama inspection support.
 
 ### Changed
 - Improved package metadata for npm and GitHub consumers.

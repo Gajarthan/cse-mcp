@@ -1,5 +1,7 @@
 # CSE MCP Server
 
+[![cse-mcp MCP server](https://glama.ai/mcp/servers/Gajarthan/cse-mcp/badges/card.svg)](https://glama.ai/mcp/servers/Gajarthan/cse-mcp)
+
 `@gajarthan/cse-mcp` is a TypeScript Model Context Protocol server for the Colombo Stock Exchange. It gives MCP-compatible clients a clean way to search listed companies, fetch normalized single-stock quotes, and retrieve market-wide snapshots such as status, summary, top gainers, top losers, and index data. It is built for developers, analysts, and AI-tool builders who want fast access to CSE data through a stable MCP tool surface instead of scraping raw website responses inside prompts.
 
 ## Key Features
@@ -298,6 +300,20 @@ Recommended Smithery settings for this repo:
 - auto deploy: enable only after the first successful publish
 
 See [SMITHERY.md](./SMITHERY.md) for the full GitHub-to-Smithery workflow, checklists, and common failure points.
+
+## Releases
+
+This repository already includes tag-driven release automation in [`.github/workflows/release.yml`](./.github/workflows/release.yml).
+
+To create a GitHub release:
+
+1. Update `package.json`, `src/index.ts`, `server.json`, and `glama.json` to the intended version
+2. Add release notes to [CHANGELOG.md](./CHANGELOG.md)
+3. Run `npm run release:check`
+4. Create and push a semver tag such as `v2.0.1`
+5. Open the draft GitHub release created by Actions, review the generated notes, and publish it
+
+The workflow validates the release on both Ubuntu and Windows before drafting the GitHub release.
 
 ## Tool Reference
 
