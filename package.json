@@ -1,0 +1,45 @@
+{
+  "name": "cse-mcp",
+  "version": "2.0.0",
+  "description": "Production-oriented MCP server for the Colombo Stock Exchange",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "cse-mcp": "./bin/cse-mcp.js"
+  },
+  "files": [
+    "bin/",
+    "dist/",
+    "cse_companies.csv",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "test": "npm run typecheck"
+  },
+  "keywords": [
+    "mcp",
+    "cse",
+    "colombo-stock-exchange",
+    "stocks",
+    "typescript"
+  ],
+  "license": "ISC",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.2",
+    "csv-parse": "^5.6.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
