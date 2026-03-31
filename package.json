@@ -20,7 +20,7 @@
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
-    "test": "npm run typecheck"
+    "test": "npm run typecheck && node --import tsx --test tests/*.test.ts"
   },
   "keywords": [
     "mcp",
