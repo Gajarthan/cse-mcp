@@ -3,6 +3,15 @@
   "version": "2.0.1",
   "mcpName": "io.github.Gajarthan/cse-mcp",
   "description": "Production-oriented MCP server for the Colombo Stock Exchange",
+  "author": "Gajarthan",
+  "homepage": "https://github.com/Gajarthan/cse-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/Gajarthan/cse-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gajarthan/cse-mcp.git"
+  },
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -12,7 +21,10 @@
     "bin/",
     "dist/",
     "cse_companies.csv",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "server.json"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -20,7 +32,10 @@
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "inspector": "npx @modelcontextprotocol/inspector node dist/index.js",
-    "test": "npm run typecheck && node --import tsx --test --test-reporter=spec tests/index.test.ts"
+    "test": "npm run typecheck && node --import tsx --test --test-reporter=spec tests/index.test.ts",
+    "pack:check": "npm pack --dry-run",
+    "release:check": "npm run typecheck && npm run build && npm test && npm run pack:check",
+    "prepack": "npm run build"
   },
   "keywords": [
     "mcp",
@@ -30,6 +45,9 @@
     "typescript"
   ],
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=20"
   },

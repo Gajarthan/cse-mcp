@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation and publish guide
+    url: https://github.com/Gajarthan/cse-mcp/blob/master/SMITHERY.md
+    about: Check the Smithery and release guidance before opening packaging or publishing issues.

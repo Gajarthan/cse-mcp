@@ -69,7 +69,7 @@ If the package is published to npm, the fastest install path becomes:
   "mcpServers": {
     "cse": {
       "command": "npx",
-      "args": ["@gajarthan/cse-mcp"]
+      "args": ["-y", "@gajarthan/cse-mcp"]
     }
   }
 }
@@ -86,7 +86,7 @@ Use search_company to find John Keells Holdings, then call get_stock_quote for t
 This server supports local `stdio` usage only. In most clients, you can configure it in one of two ways:
 
 - local development mode: `node C:/absolute/path/to/cse-mcp/dist/index.js`
-- published package mode: `npx @gajarthan/cse-mcp`
+- published package mode: `npx -y @gajarthan/cse-mcp`
 
 ### Local `stdio` vs remote HTTP
 
@@ -106,7 +106,7 @@ claude mcp add-json cse "{\"type\":\"stdio\",\"command\":\"node\",\"args\":[\"C:
 Published-package variant:
 
 ```bash
-claude mcp add-json cse "{\"type\":\"stdio\",\"command\":\"npx\",\"args\":[\"@gajarthan/cse-mcp\"]}"
+claude mcp add-json cse "{\"type\":\"stdio\",\"command\":\"npx\",\"args\":[\"-y\",\"@gajarthan/cse-mcp\"]}"
 ```
 
 Or use `.mcp.json`:
@@ -141,7 +141,7 @@ codex mcp add cse -- node C:/absolute/path/to/cse-mcp/dist/index.js
 Published-package CLI setup:
 
 ```bash
-codex mcp add cse -- npx @gajarthan/cse-mcp
+codex mcp add cse -- npx -y @gajarthan/cse-mcp
 ```
 
 `config.toml` setup:
@@ -157,7 +157,7 @@ Published-package `config.toml` setup:
 ```toml
 [mcp_servers.cse]
 command = "npx"
-args = ["@gajarthan/cse-mcp"]
+args = ["-y", "@gajarthan/cse-mcp"]
 ```
 
 ### Cursor
@@ -182,7 +182,7 @@ If the client supports `npx`, you can usually replace the command with:
   "mcpServers": {
     "cse": {
       "command": "npx",
-      "args": ["@gajarthan/cse-mcp"]
+      "args": ["-y", "@gajarthan/cse-mcp"]
     }
   }
 }
@@ -271,6 +271,33 @@ Gemini CLI MCP support is version-dependent. For versions that support local MCP
 ```
 
 Verify the current Gemini CLI config path and schema in the version you are using.
+
+## Smithery Publishing
+
+This project is intended for Smithery publishing through the GitHub repository integration path.
+
+What is verified:
+
+- The server is a local `stdio` MCP server
+- The npm package is published as `@gajarthan/cse-mcp`
+- The repository is public on GitHub
+
+What is intentionally not supported today:
+
+- public HTTPS MCP deployment
+- SSE transport
+- hosted remote MCP URL publishing
+
+For Smithery, that means the practical route is to connect the GitHub repo and let Smithery build from the repository, branch, and base directory instead of requiring a public MCP URL.
+
+Recommended Smithery settings for this repo:
+
+- repository: `Gajarthan/cse-mcp`
+- branch: `master`
+- base directory: `.`
+- auto deploy: enable only after the first successful publish
+
+See [SMITHERY.md](./SMITHERY.md) for the full GitHub-to-Smithery workflow, checklists, and common failure points.
 
 ## Tool Reference
 
@@ -410,6 +437,14 @@ This project does not currently require or document custom environment variables
 
 If timeout, retry count, base URL override, or CSV path override should become user-configurable, they should be added explicitly and documented here rather than inferred from source code.
 
+## Known Limitations
+
+- This server supports `stdio` transport only
+- The upstream CSE API is unofficial and may change without notice
+- Market data correctness and availability depend on the CSE website
+- Hosted HTTP/SSE deployment is not implemented yet
+- Smithery GitHub publishing is documentation-aligned here, but the final build behavior should still be verified in your Smithery project UI and deployment logs
+
 ## Troubleshooting
 
 ### The client shows no tools
@@ -468,7 +503,16 @@ If you do not want to deal with local paths, prefer the published package form:
 ```json
 {
   "command": "npx",
-  "args": ["@gajarthan/cse-mcp"]
+  "args": ["-y", "@gajarthan/cse-mcp"]
+}
+```
+
+If a client has trouble launching the package directly, use the explicit npm package form:
+
+```json
+{
+  "command": "npx",
+  "args": ["-y", "-p", "@gajarthan/cse-mcp", "cse-mcp"]
 }
 ```
 
@@ -488,6 +532,8 @@ Useful scripts:
 - `npm run typecheck` - run TypeScript checks without emitting files
 - `npm run start` - start the compiled server
 - `npm run inspector` - launch MCP Inspector against the local build
+- `npm run pack:check` - verify npm package contents without publishing
+- `npm run release:check` - run typecheck, build, tests, and npm pack validation
 
 Recommended local workflow:
 
@@ -512,17 +558,13 @@ Project layout:
 
 ## Changelog
 
-Formal changelog management is not set up yet.
-
-TODO:
-
-- add a `CHANGELOG.md`
-- tag releases consistently
-- document breaking changes in tool contracts
+See [CHANGELOG.md](./CHANGELOG.md).
 
 ## Contributing
 
 This is an open source project, and contributions are welcome.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for local setup, validation steps, and pull request expectations.
 
 Suggested contribution flow:
 
