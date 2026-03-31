@@ -1,6 +1,7 @@
 {
   "name": "@gajarthan/cse-mcp",
-  "version": "2.0.0",
+  "version": "2.0.1",
+  "mcpName": "io.github.Gajarthan/cse-mcp",
   "description": "Production-oriented MCP server for the Colombo Stock Exchange",
   "type": "module",
   "main": "dist/index.js",
